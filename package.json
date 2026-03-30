@@ -2,10 +2,8 @@
   "name": "zane1918.github.io",
   "version": "1.0.0",
   "description": "Personal Site",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "author": "Zeng Jia",
+  "license": "ISC",
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
@@ -16,14 +14,6 @@
     "type": "git",
     "url": "git+https://github.com/Zane1918/Zane1918.github.io.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Zane1918/Zane1918.github.io/issues"
-  },
-  "homepage": "https://github.com/Zane1918/Zane1918.github.io#readme",
   "dependencies": {
     "animejs": "^4.3.6",
     "gatsby": "^5.16.1",
@@ -46,7 +36,7 @@
     "styled-components": "^6.3.12"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "eslint": "^8.57.1",
     "prettier": "^3.8.1"
   }
 }

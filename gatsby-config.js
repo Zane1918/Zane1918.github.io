@@ -30,5 +30,7 @@ module.exports = {
     'gatsby-plugin-sitemap',
     'gatsby-plugin-robots-txt',
     'gatsby-plugin-offline',
+    // Optional: uncomment and add your GA4 tracking ID to enable analytics
+    // { resolve: 'gatsby-plugin-gtag', options: { trackingId: 'G-XXXXXXXXXX' } },
   ],
 }
