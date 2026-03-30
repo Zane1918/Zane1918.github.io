@@ -1,6 +1,8 @@
 import React from 'react'
 import Layout from '../components/layout/Layout'
 import Hero from '../components/sections/Hero'
+import About from '../components/sections/About'
+import Experience from '../components/sections/Experience'
 
 export const Head = () => (
   <>
@@ -13,6 +15,8 @@ export default function IndexPage() {
   return (
     <Layout>
       <Hero />
+      <About />
+      <Experience />
     </Layout>
   )
 }
