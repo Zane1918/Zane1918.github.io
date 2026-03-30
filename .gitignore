@@ -1,2 +1,14 @@
 .superpowers/
 .claude/.superpowers/
+
+# Gatsby
+.cache/
+public/
+node_modules/
+
+# Misc
+.DS_Store
+*.log
+npm-debug.log*
+.env
+.env.*

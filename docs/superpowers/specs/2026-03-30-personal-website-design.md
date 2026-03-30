@@ -110,12 +110,12 @@ static/
 ### `content/jobs/*.md`
 ```yaml
 ---
-date: 2023-01-01
+date: 2026-03-30
 title: Algorithm Engineer
-company: Acme Corp
-location: Beijing, China
-range: Jan 2023 - Present
-url: https://acme.com
+company: Trip.com
+location: Shanghai, China
+range: Mar 2024 - Present
+url: https://trip.com
 ---
 - Bullet point responsibilities
 - Another bullet point
@@ -202,11 +202,11 @@ Full Markdown content...
 ```js
 module.exports = {
   name:     'Zeng Jia',            // display name on the site
-  email:    'TODO@example.com',    // replace before deploy
+  email:    'jiazeng1918@outlook.com',    // replace before deploy
   siteUrl:  'https://zane1918.github.io',
   socialMedia: [
     { name: 'GitHub',   url: 'https://github.com/Zane1918' },
-    { name: 'LinkedIn', url: 'TODO' },  // replace before deploy
+    { name: 'LinkedIn', url: 'www.linkedin.com/in/jia-zeng-a88364254' },  // replace before deploy
   ],
   navLinks: [
     { name: 'About',      url: '/#about' },

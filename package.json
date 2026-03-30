@@ -1,0 +1,52 @@
+{
+  "name": "zane1918.github.io",
+  "version": "1.0.0",
+  "description": "Personal Site",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zane1918/Zane1918.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Zane1918/Zane1918.github.io/issues"
+  },
+  "homepage": "https://github.com/Zane1918/Zane1918.github.io#readme",
+  "dependencies": {
+    "animejs": "^4.3.6",
+    "gatsby": "^5.16.1",
+    "gatsby-plugin-gtag": "^1.0.13",
+    "gatsby-plugin-image": "^3.16.0",
+    "gatsby-plugin-offline": "^6.16.0",
+    "gatsby-plugin-robots-txt": "^1.8.0",
+    "gatsby-plugin-sharp": "^5.16.0",
+    "gatsby-plugin-sitemap": "^6.16.0",
+    "gatsby-plugin-styled-components": "^6.16.0",
+    "gatsby-remark-images": "^7.16.0",
+    "gatsby-remark-prismjs": "^7.16.0",
+    "gatsby-source-filesystem": "^5.16.0",
+    "gatsby-transformer-remark": "^6.16.0",
+    "gatsby-transformer-sharp": "^5.16.0",
+    "prismjs": "^1.30.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "scrollreveal": "^4.0.9",
+    "styled-components": "^6.3.12"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "prettier": "^3.8.1"
+  }
+}
