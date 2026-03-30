@@ -50,7 +50,7 @@ colors: {
 - Fixed left sidebar (`260px`) containing logo, nav links, and social icons
 - Content area: max-width `900px`, centered in remaining space
 - Section padding: `100px 0` desktop, `60px 0` mobile
-- Sidebar collapses to top hamburger menu on mobile (breakpoint: `768px`)
+- Sidebar collapses to top hamburger menu on mobile (breakpoint: `768px`). On mobile, tapping the hamburger opens a full-screen overlay menu with nav links centered vertically; tapping a link or the close button dismisses it.
 
 ---
 
@@ -61,17 +61,18 @@ colors: {
 Sections in order:
 
 1. **Hero** — Greeting, name (large, Plus Jakarta Sans 800), title "Algorithm Engineer", 2-line tagline, two CTAs: "View My Work" (scroll to projects) + "Download Resume" (PDF)
-2. **About** — Bio paragraph (2-3 sentences), skills/tech grid, profile photo on the right
+2. **About** — Bio paragraph (2-3 sentences), skills/tech grid, profile photo on the right (sourced from `src/images/profile.jpg`, recommended size 500×500px, square crop)
 3. **Experience** — Tabbed job timeline. Each entry: company, role, date range, bullet-point responsibilities. Active tab switches on click.
-4. **Featured Projects** — 2-3 highlighted projects in alternating left/right layout. Each: name, description, tech stack tags, GitHub + live links, screenshot image.
-5. **Other Projects** — Card grid of smaller projects. Each card: name, description, tech tags, GitHub/external links.
-6. **Contact** — Short CTA paragraph, large email button, social links row.
+4. **Featured Projects** — 2-3 highlighted projects in alternating left/right layout. Each: name, description, tech stack tags, GitHub + live links, screenshot image. Section component renders with `id="projects"` (matches nav link `/#projects`).
+5. **Other Projects** — Card grid of smaller projects sorted by `date` descending. Each card: name, description, tech tags, GitHub/external links. Section component renders with `id="other-projects"`.
+6. **Recent Posts** — Preview of the 3 most recent blog posts (title, date, excerpt). Links to `/blog` for full list.
+7. **Contact** — Short CTA paragraph, large email button, social links row.
 
 ### `/blog` — Blog List
 All posts sorted by date. Each entry: title, date, short excerpt, tags. Clean minimal list layout.
 
 ### `/blog/{slug}` — Blog Post
-Title, date, tags, MDX/Markdown content with Prism syntax highlighting. Prev/next post navigation at bottom.
+Title, date, tags, Markdown content with Prism syntax highlighting (via `gatsby-transformer-remark` + `gatsby-remark-prismjs`). Prev/next post navigation at bottom. **No MDX** — plain Markdown only.
 
 ### `/404` — Not Found
 Simple page with back-to-home link.
@@ -84,17 +85,18 @@ Simple page with back-to-home link.
 src/
   components/
     layout/      # Layout.js, Nav.js (sidebar), Head.js, Footer.js
-    sections/    # Hero.js, About.js, Experience.js, Featured.js, Projects.js, Blog.js, Contact.js
+    sections/    # Hero.js, About.js, Experience.js, Featured.js, Projects.js, RecentPosts.js, Contact.js
     ui/          # Button.js, Tag.js, Icon.js (reusable primitives)
   styles/        # theme.js, GlobalStyle.js, mixins.js, fonts.js
   pages/         # index.js, blog.js, 404.js
   templates/     # blog-post.js
   hooks/         # useScrollReveal.js, usePrefersReducedMotion.js
+  images/        # profile.jpg (500×500px, square crop — used by About section)
   config.js      # name, email, siteUrl, socialMedia, navLinks
 content/
   jobs/          # One .md file per job
   projects/      # One .md file per project
-  featured/      # One .md file per featured project (with cover image)
+  featured/      # One .md file per featured project + co-located cover.png image
   posts/         # One .md file per blog post
 static/
   og.png         # OG image for social sharing
@@ -120,6 +122,8 @@ url: https://acme.com
 ```
 
 ### `content/featured/*.md`
+Cover image is co-located alongside the `.md` file (e.g., `content/featured/my-project/index.md` + `content/featured/my-project/cover.png`). Processed by `gatsby-plugin-image` via `gatsby-transformer-remark` with `gatsby-remark-images`.
+
 ```yaml
 ---
 date: 2024-01-01
@@ -135,12 +139,14 @@ Project description paragraph.
 ```
 
 ### `content/projects/*.md`
+Cards are sorted by `date` descending in the GraphQL query. The `external` field is optional.
+
 ```yaml
 ---
 date: 2024-01-01
 title: Project Name
 github: https://github.com/...
-external: https://live-demo.com
+external: https://live-demo.com  # optional
 tech:
   - Python
   - FastAPI
@@ -181,23 +187,26 @@ Full Markdown content...
 - Steps: `npm install` → `gatsby build` → deploy `public/` to `gh-pages` branch
 
 **Gatsby plugins:**
-- `gatsby-plugin-react-helmet` — `<head>` / meta tags
+- **Gatsby Head API** (built-in, Gatsby v5) — replaces `gatsby-plugin-react-helmet`; use the exported `Head` function in each page for `<title>`, meta, and OG tags
 - `gatsby-plugin-sitemap` — auto-generates `sitemap.xml`
 - `gatsby-plugin-robots-txt` — generates `robots.txt`
-- `gatsby-plugin-image` + `gatsby-plugin-sharp` — responsive images
-- `gatsby-plugin-offline` — PWA service worker
-- `gatsby-plugin-google-analytics` — GA4 (optional)
+- `gatsby-plugin-image` + `gatsby-plugin-sharp` + `gatsby-transformer-sharp` — responsive images
+- `gatsby-plugin-offline` — PWA service worker (**Note:** assumes root-domain GitHub Pages — `https://zane1918.github.io/` with no `pathPrefix`; safe for this repo name pattern)
+- `gatsby-plugin-gtag` — Google Analytics 4 (optional; replaces deprecated `gatsby-plugin-google-analytics`)
 - `gatsby-remark-prismjs` — syntax highlighting in blog posts
+- `gatsby-remark-images` — processes co-located images in Markdown (used by featured projects)
 
 **`src/config.js`:**
+> **Note:** Replace `email` and social media URLs with real values before first deploy.
+
 ```js
 module.exports = {
-  name:     'Zane Wang',
-  email:    'you@example.com',
+  name:     'Zeng Jia',            // display name on the site
+  email:    'TODO@example.com',    // replace before deploy
   siteUrl:  'https://zane1918.github.io',
   socialMedia: [
     { name: 'GitHub',   url: 'https://github.com/Zane1918' },
-    { name: 'LinkedIn', url: '...' },
+    { name: 'LinkedIn', url: 'TODO' },  // replace before deploy
   ],
   navLinks: [
     { name: 'About',      url: '/#about' },
