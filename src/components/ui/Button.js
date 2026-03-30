@@ -13,8 +13,8 @@ const Button = styled.a`
   transition: ${({ theme }) => theme.transition};
   text-decoration: none;
 
-  ${({ variant }) =>
-    variant === 'outline'
+  ${({ $variant }) =>
+    $variant === 'outline'
       ? css`
           border: 2px solid ${({ theme }) => theme.colors.accent};
           color: ${({ theme }) => theme.colors.accent};

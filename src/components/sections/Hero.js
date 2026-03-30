@@ -63,7 +63,7 @@ const Hero = () => (
     </Tagline>
     <CTARow>
       <Button href="/#projects">View My Work</Button>
-      <Button href="/resume.pdf" variant="outline" target="_blank" rel="noopener noreferrer">
+      <Button href="/resume.pdf" $variant="outline" target="_blank" rel="noopener noreferrer">
         Download Resume
       </Button>
     </CTARow>

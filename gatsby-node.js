@@ -16,6 +16,8 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
+  if (result.errors) throw result.errors[0]
+
   const posts = result.data.allMarkdownRemark.nodes
 
   posts.forEach((post, index) => {

@@ -60,7 +60,7 @@ const NavLinks = styled.ul`
     transition: ${({ theme }) => theme.transition};
     &:hover, &.active {
       color: ${({ theme }) => theme.colors.accent};
-      background: ${({ theme }) => theme.colors.accentLight}33;
+      background: ${({ theme }) => `${theme.colors.accentLight}33`};
     }
   }
 

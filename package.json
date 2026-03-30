@@ -15,7 +15,6 @@
     "url": "git+https://github.com/Zane1918/Zane1918.github.io.git"
   },
   "dependencies": {
-    "animejs": "^4.3.6",
     "gatsby": "^5.16.1",
     "gatsby-plugin-gtag": "^1.0.13",
     "gatsby-plugin-image": "^3.16.0",

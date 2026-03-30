@@ -55,7 +55,7 @@ const TabButton = styled.button`
 
   &:hover {
     color: ${({ theme }) => theme.colors.accent};
-    background: ${({ theme }) => theme.colors.accentLight}22;
+    background: ${({ theme }) => `${theme.colors.accentLight}22`};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {

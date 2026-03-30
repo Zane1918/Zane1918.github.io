@@ -46,6 +46,10 @@ const CardHeader = styled.div`
   }
 `
 
+const FolderIconWrapper = styled.span`
+  color: ${({ theme }) => theme.colors.accent};
+`
+
 const CardIconLinks = styled.div`
   display: flex;
   gap: 12px;
@@ -117,7 +121,7 @@ const Projects = () => {
         {projects.slice(0, showCount).map(({ excerpt, frontmatter }, i) => (
           <Card key={i}>
             <CardHeader>
-              <Icon name="Folder" size={36} style={{ color: '#DA7756' }} />
+              <FolderIconWrapper><Icon name="Folder" size={36} /></FolderIconWrapper>
               <CardIconLinks>
                 {frontmatter.github && (
                   <a href={frontmatter.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
