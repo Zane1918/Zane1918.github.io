@@ -135,12 +135,27 @@ const MobileMenu = styled.div`
 
 const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
     if (menuOpen) document.body.style.overflow = 'hidden'
     else document.body.style.overflow = ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('section[id]')
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id)
+        })
+      },
+      { rootMargin: '-40% 0px -50% 0px' }
+    )
+    sections.forEach(s => observer.observe(s))
+    return () => observer.disconnect()
+  }, [])
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -153,7 +168,7 @@ const Nav = () => {
             <li key={name}>
               {url.startsWith('/') && !url.startsWith('/#')
                 ? <Link to={url} activeClassName="active">{name}</Link>
-                : <a href={url}>{name}</a>}
+                : <a href={url} className={activeSection && url.includes(activeSection) ? 'active' : ''}>{name}</a>}
             </li>
           ))}
         </NavLinks>
