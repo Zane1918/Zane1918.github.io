@@ -77,7 +77,7 @@ const PostBody = styled.div`
   code {
     font-family: ${({ theme }) => theme.fonts.mono};
     font-size: 14px;
-    background: ${({ theme }) => theme.colors.accentLight}44;
+    background: ${({ theme }) => `${theme.colors.accentLight}44`};
     padding: 2px 6px;
     border-radius: 4px;
   }
