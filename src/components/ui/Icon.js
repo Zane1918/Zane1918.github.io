@@ -25,13 +25,22 @@ const icons = {
   ),
 }
 
-const Icon = ({ name, size = 20, ...props }) => (
-  <span
-    style={{ display: 'inline-flex', width: size, height: size, flexShrink: 0 }}
-    {...props}
-  >
-    {icons[name]}
-  </span>
-)
+const Icon = ({ name, size = 20, ...props }) => {
+  const icon = icons[name]
+  if (!icon) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`Icon: unknown name "${name}". Available: ${Object.keys(icons).join(', ')}`)
+    }
+    return null
+  }
+  return (
+    <span
+      style={{ display: 'inline-flex', width: size, height: size, flexShrink: 0 }}
+      {...props}
+    >
+      {icon}
+    </span>
+  )
+}
 
 export default Icon
