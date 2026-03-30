@@ -151,7 +151,9 @@ const Nav = () => {
         <NavLinks>
           {config.navLinks.map(({ name, url }) => (
             <li key={name}>
-              <a href={url}>{name}</a>
+              {url.startsWith('/') && !url.startsWith('/#')
+                ? <Link to={url} activeClassName="active">{name}</Link>
+                : <a href={url}>{name}</a>}
             </li>
           ))}
         </NavLinks>
@@ -171,10 +173,12 @@ const Nav = () => {
         </HamburgerButton>
       </StyledNav>
 
-      <MobileMenu $open={menuOpen}>
+      <MobileMenu $open={menuOpen} aria-hidden={!menuOpen}>
         <button onClick={closeMenu} aria-label="Close menu">×</button>
         {config.navLinks.map(({ name, url }) => (
-          <a key={name} href={url} onClick={closeMenu}>{name}</a>
+          url.startsWith('/') && !url.startsWith('/#')
+            ? <Link key={name} to={url} onClick={closeMenu}>{name}</Link>
+            : <a key={name} href={url} onClick={closeMenu}>{name}</a>
         ))}
       </MobileMenu>
     </>
