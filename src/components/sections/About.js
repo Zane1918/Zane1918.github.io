@@ -63,7 +63,6 @@ const SkillsGrid = styled.ul`
 const PhotoWrapper = styled.div`
   position: relative;
   border-radius: 8px;
-  overflow: hidden;
   max-width: 300px;
   width: 100%;
   margin: 0 auto;
@@ -75,7 +74,8 @@ const PhotoWrapper = styled.div`
     border: 2px solid ${({ theme }) => theme.colors.accent};
     border-radius: 8px;
     transform: translate(8px, 8px);
-    z-index: -1;
+    z-index: 1;
+    pointer-events: none;
   }
 `
 

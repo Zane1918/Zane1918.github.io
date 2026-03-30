@@ -48,7 +48,7 @@ const TabButton = styled.button`
   font-size: 13px;
   color: ${({ $active, theme }) => $active ? theme.colors.accent : theme.colors.slate};
   border-right-color: ${({ $active, theme }) => $active ? theme.colors.accent : 'transparent'};
-  background: ${({ $active, theme }) => $active ? theme.colors.accentLight + '33' : 'transparent'};
+  background: ${({ $active, theme }) => $active ? `${theme.colors.accentLight}33` : 'transparent'};
   transition: ${({ theme }) => theme.transition};
   white-space: nowrap;
 
