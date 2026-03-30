@@ -2,6 +2,7 @@ import React from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 import mixins from '../../styles/mixins'
+import useScrollReveal from '../../hooks/useScrollReveal'
 
 const StyledRecentPosts = styled.section`
   padding: 100px 0;
@@ -63,6 +64,7 @@ const PostTitle = styled(Link)`
 `
 
 const RecentPosts = () => {
+  const ref = useScrollReveal()
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark(
@@ -85,7 +87,7 @@ const RecentPosts = () => {
   if (!posts.length) return null
 
   return (
-    <StyledRecentPosts id="blog">
+    <StyledRecentPosts id="blog" ref={ref}>
       <HeaderRow>
         <Heading>Recent Posts</Heading>
         <ViewAll to="/blog">View all →</ViewAll>

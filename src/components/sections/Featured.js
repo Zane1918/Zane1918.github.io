@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Icon from '../ui/Icon'
 import Tag from '../ui/Tag'
 import mixins from '../../styles/mixins'
+import useScrollReveal from '../../hooks/useScrollReveal'
 
 const StyledFeatured = styled.section`
   padding: 100px 0;
@@ -96,6 +97,7 @@ const ImagePlaceholder = styled.div`
 `
 
 const Featured = () => {
+  const ref = useScrollReveal()
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark(
@@ -114,7 +116,7 @@ const Featured = () => {
   if (!projects.length) return null
 
   return (
-    <StyledFeatured id="projects">
+    <StyledFeatured id="projects" ref={ref}>
       <Heading>Featured Work</Heading>
       <ProjectList>
         {projects.map(({ html, frontmatter }, i) => (

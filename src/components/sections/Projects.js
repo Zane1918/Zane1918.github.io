@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Icon from '../ui/Icon'
 import Tag from '../ui/Tag'
 import mixins from '../../styles/mixins'
+import useScrollReveal from '../../hooks/useScrollReveal'
 
 const StyledProjects = styled.section`
   padding: 100px 0;
@@ -89,6 +90,7 @@ const ShowMoreButton = styled.button`
 `
 
 const Projects = () => {
+  const ref = useScrollReveal()
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark(
@@ -109,7 +111,7 @@ const Projects = () => {
   if (!projects.length) return null
 
   return (
-    <StyledProjects id="other-projects">
+    <StyledProjects id="other-projects" ref={ref}>
       <Heading>Other Projects</Heading>
       <Grid>
         {projects.slice(0, showCount).map(({ excerpt, frontmatter }, i) => (

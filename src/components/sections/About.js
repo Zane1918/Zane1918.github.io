@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { StaticImage } from 'gatsby-plugin-image'
 import mixins from '../../styles/mixins'
+import useScrollReveal from '../../hooks/useScrollReveal'
 
 const StyledAbout = styled.section`
   padding: 100px 0;
@@ -85,8 +86,10 @@ const skills = [
   'C++', 'Docker', 'Git',
 ]
 
-const About = () => (
-  <StyledAbout id="about">
+const About = () => {
+  const ref = useScrollReveal()
+  return (
+  <StyledAbout id="about" ref={ref}>
     <Heading>About Me</Heading>
     <Inner>
       <Bio>
@@ -114,6 +117,7 @@ const About = () => (
       </PhotoWrapper>
     </Inner>
   </StyledAbout>
-)
+  )
+}
 
 export default About

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Button from '../ui/Button'
 import Icon from '../ui/Icon'
+import useScrollReveal from '../../hooks/useScrollReveal'
 const config = require('../../config')
 
 const StyledContact = styled.section`
@@ -45,8 +46,10 @@ const SocialRow = styled.div`
   }
 `
 
-const Contact = () => (
-  <StyledContact id="contact">
+const Contact = () => {
+  const ref = useScrollReveal()
+  return (
+  <StyledContact id="contact" ref={ref}>
     <Label>What's Next?</Label>
     <Heading>Get In Touch</Heading>
     <Body>
@@ -62,6 +65,7 @@ const Contact = () => (
       ))}
     </SocialRow>
   </StyledContact>
-)
+  )
+}
 
 export default Contact

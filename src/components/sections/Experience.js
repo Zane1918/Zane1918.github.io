@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useStaticQuery, graphql } from 'gatsby'
 import mixins from '../../styles/mixins'
+import useScrollReveal from '../../hooks/useScrollReveal'
 
 const StyledExperience = styled.section`
   padding: 100px 0;
@@ -113,6 +114,7 @@ const Duties = styled.div`
 `
 
 const Experience = () => {
+  const ref = useScrollReveal()
   const data = useStaticQuery(graphql`
     query {
       allMarkdownRemark(
@@ -135,7 +137,7 @@ const Experience = () => {
   const job = jobs[activeTab]
 
   return (
-    <StyledExperience id="experience">
+    <StyledExperience id="experience" ref={ref}>
       <Heading>Where I've Worked</Heading>
       <TabsWrapper>
         <TabList>
