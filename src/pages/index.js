@@ -6,6 +6,7 @@ import Experience from '../components/sections/Experience'
 import Featured from '../components/sections/Featured'
 import Projects from '../components/sections/Projects'
 import Contact from '../components/sections/Contact'
+import RecentPosts from '../components/sections/RecentPosts'
 
 export const Head = () => (
   <>
@@ -23,6 +24,7 @@ export default function IndexPage() {
       <Featured />
       <Projects />
       <Contact />
+      <RecentPosts />
     </Layout>
   )
 }
