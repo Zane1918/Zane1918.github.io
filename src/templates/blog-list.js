@@ -3,10 +3,7 @@ import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
 import mixins from '../styles/mixins'
-import en from '../i18n/en'
-import zh from '../i18n/zh'
-
-const selectLocale = locale => locale === 'zh' ? zh : en
+import { selectLocale } from '../i18n'
 
 const StyledBlog = styled.section`
   padding: 80px 0;

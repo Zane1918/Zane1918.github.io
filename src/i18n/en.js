@@ -34,7 +34,7 @@ export default {
   },
   recentPosts: { heading: 'Recent Posts', viewAll: 'View all →' },
   blog: { heading: 'Blog', prev: '← Previous', next: 'Next →' },
-  footer: { credit: 'Designed & Built by ' },
+  footer: { credit: 'Designed & Built by' },
   meta: {
     homeTitle: 'Zeng Jia | Algorithm Engineer',
     homeDesc: 'Algorithm Engineer at Trip.com. I build intelligent systems at scale.',

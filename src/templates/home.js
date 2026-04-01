@@ -8,10 +8,7 @@ import Featured from '../components/sections/Featured'
 import Projects from '../components/sections/Projects'
 import Contact from '../components/sections/Contact'
 import RecentPosts from '../components/sections/RecentPosts'
-import en from '../i18n/en'
-import zh from '../i18n/zh'
-
-const selectLocale = locale => locale === 'zh' ? zh : en
+import { selectLocale } from '../i18n'
 
 export const Head = ({ pageContext }) => {
   const t = selectLocale(pageContext.locale)

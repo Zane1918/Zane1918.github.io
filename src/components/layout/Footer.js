@@ -12,7 +12,7 @@ const StyledFooter = styled.footer`
 
 const Footer = ({ t }) => (
   <StyledFooter>
-    <p>{t ? t.credit : 'Designed & Built by '}{config.name}</p>
+    <p>{t ? t.credit : 'Designed & Built by'} {config.name}</p>
   </StyledFooter>
 )
 
