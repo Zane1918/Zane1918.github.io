@@ -52,19 +52,16 @@ const CTARow = styled.div`
   flex-wrap: wrap;
 `
 
-const Hero = () => (
+const Hero = ({ t }) => (
   <StyledHero id="hero">
-    <Greeting>Hi, I'm</Greeting>
+    <Greeting>{t.greeting}</Greeting>
     <Name>{config.name}</Name>
-    <Title>Algorithm Engineer</Title>
-    <Tagline>
-      I build intelligent systems that bridge research and production —
-      from recommendation engines to large-scale ML pipelines.
-    </Tagline>
+    <Title>{t.role}</Title>
+    <Tagline>{t.tagline}</Tagline>
     <CTARow>
-      <Button href="/#projects">View My Work</Button>
+      <Button href="#projects">{t.cta1}</Button>
       <Button href="/resume.pdf" $variant="outline" target="_blank" rel="noopener noreferrer">
-        Download Resume
+        {t.cta2}
       </Button>
     </CTARow>
   </StyledHero>

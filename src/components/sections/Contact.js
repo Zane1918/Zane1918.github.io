@@ -46,25 +46,22 @@ const SocialRow = styled.div`
   }
 `
 
-const Contact = () => {
+const Contact = ({ t }) => {
   const ref = useScrollReveal()
   return (
-  <StyledContact id="contact" ref={ref}>
-    <Label>What's Next?</Label>
-    <Heading>Get In Touch</Heading>
-    <Body>
-      I'm currently open to new opportunities. Whether you have a project in mind,
-      a question, or just want to say hi — my inbox is always open.
-    </Body>
-    <Button href={`mailto:${config.email}`}>Say Hello</Button>
-    <SocialRow>
-      {config.socialMedia.map(({ name, url }) => (
-        <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={name}>
-          <Icon name={name} size={22} />
-        </a>
-      ))}
-    </SocialRow>
-  </StyledContact>
+    <StyledContact id="contact" ref={ref}>
+      <Label>{t.label}</Label>
+      <Heading>{t.heading}</Heading>
+      <Body>{t.body}</Body>
+      <Button href={`mailto:${config.email}`}>{t.cta}</Button>
+      <SocialRow>
+        {config.socialMedia.map(({ name, url }) => (
+          <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={name}>
+            <Icon name={name} size={22} />
+          </a>
+        ))}
+      </SocialRow>
+    </StyledContact>
   )
 }
 

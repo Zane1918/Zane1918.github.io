@@ -86,37 +86,31 @@ const skills = [
   'C++', 'Docker', 'Git',
 ]
 
-const About = () => {
+const About = ({ t }) => {
   const ref = useScrollReveal()
   return (
-  <StyledAbout id="about" ref={ref}>
-    <Heading>About Me</Heading>
-    <Inner>
-      <Bio>
-        <p>
-          I'm an algorithm engineer based in Shanghai, currently at Trip.com where I
-          work on large-scale recommendation and ranking systems that serve millions of users.
-        </p>
-        <p>
-          I enjoy working at the intersection of research and engineering — designing
-          machine learning systems that are both theoretically sound and production-ready.
-        </p>
-        <SkillsLabel>Technologies I work with:</SkillsLabel>
-        <SkillsGrid>
-          {skills.map(skill => <li key={skill}>{skill}</li>)}
-        </SkillsGrid>
-      </Bio>
-      <PhotoWrapper>
-        <StaticImage
-          src="../../images/profile.jpg"
-          alt="Zeng Jia"
-          width={300}
-          height={300}
-          style={{ borderRadius: 8 }}
-        />
-      </PhotoWrapper>
-    </Inner>
-  </StyledAbout>
+    <StyledAbout id="about" ref={ref}>
+      <Heading>{t.heading}</Heading>
+      <Inner>
+        <Bio>
+          <p>{t.bio1}</p>
+          <p>{t.bio2}</p>
+          <SkillsLabel>{t.techHeading}</SkillsLabel>
+          <SkillsGrid>
+            {skills.map(skill => <li key={skill}>{skill}</li>)}
+          </SkillsGrid>
+        </Bio>
+        <PhotoWrapper>
+          <StaticImage
+            src="../../images/profile.jpg"
+            alt="Zeng Jia"
+            width={300}
+            height={300}
+            style={{ borderRadius: 8 }}
+          />
+        </PhotoWrapper>
+      </Inner>
+    </StyledAbout>
   )
 }
 
