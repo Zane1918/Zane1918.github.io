@@ -2,6 +2,10 @@ import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
+import en from '../i18n/en'
+import zh from '../i18n/zh'
+
+const selectLocale = locale => locale === 'zh' ? zh : en
 
 const Article = styled.article`
   padding: 80px 0;
@@ -121,19 +125,23 @@ const NavRow = styled.nav`
   }
 `
 
-export const Head = ({ data }) => (
-  <>
-    <title>{data.markdownRemark.frontmatter.title} | Zeng Jia</title>
-    <meta name="description" content={data.markdownRemark.frontmatter.excerpt || ''} />
-  </>
-)
+export const Head = ({ data, pageContext }) => {
+  const t = selectLocale(pageContext.locale)
+  return (
+    <>
+      <title>{data.markdownRemark.frontmatter.title} | {t.meta.homeTitle.split('|')[0].trim()}</title>
+      <meta name="description" content={data.markdownRemark.frontmatter.excerpt || ''} />
+    </>
+  )
+}
 
 const BlogPost = ({ data, pageContext }) => {
   const { frontmatter, html } = data.markdownRemark
-  const { prevSlug, nextSlug } = pageContext
+  const { prevSlug, nextSlug, locale, alternatePath } = pageContext
+  const t = selectLocale(locale)
 
   return (
-    <Layout>
+    <Layout locale={locale} alternatePath={alternatePath} t={t}>
       <Article>
         <PostHeader>
           {frontmatter.tags?.length > 0 && (
@@ -146,8 +154,8 @@ const BlogPost = ({ data, pageContext }) => {
         </PostHeader>
         <PostBody dangerouslySetInnerHTML={{ __html: html }} />
         <NavRow>
-          <div>{prevSlug && <Link to={`/blog/${prevSlug}`}>← Previous</Link>}</div>
-          <div>{nextSlug && <Link to={`/blog/${nextSlug}`}>Next →</Link>}</div>
+          <div>{prevSlug && <Link to={`/${locale}/blog/${prevSlug}`}>{t.blog.prev}</Link>}</div>
+          <div>{nextSlug && <Link to={`/${locale}/blog/${nextSlug}`}>{t.blog.next}</Link>}</div>
         </NavRow>
       </Article>
     </Layout>
@@ -155,8 +163,10 @@ const BlogPost = ({ data, pageContext }) => {
 }
 
 export const query = graphql`
-  query BlogPostQuery($slug: String!) {
-    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
+  query BlogPostQuery($slug: String!, $locale: String!) {
+    markdownRemark(
+      frontmatter: { slug: { eq: $slug }, locale: { eq: $locale } }
+    ) {
       html
       frontmatter {
         title
