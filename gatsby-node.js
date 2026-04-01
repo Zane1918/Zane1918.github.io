@@ -43,6 +43,16 @@ exports.createPages = async ({ graphql, actions }) => {
   const enPosts = allPosts.filter(p => p.frontmatter.locale === 'en')
   const zhPosts = allPosts.filter(p => p.frontmatter.locale === 'zh')
 
+  const unclassified = allPosts.filter(
+    p => p.frontmatter.locale !== 'en' && p.frontmatter.locale !== 'zh'
+  )
+  if (unclassified.length > 0) {
+    console.warn(
+      `[gatsby-node] ${unclassified.length} post(s) missing valid locale frontmatter:`,
+      unclassified.map(p => p.frontmatter.slug)
+    )
+  }
+
   const zhSlugs = new Set(zhPosts.map(p => p.frontmatter.slug))
   const enSlugs = new Set(enPosts.map(p => p.frontmatter.slug))
 
