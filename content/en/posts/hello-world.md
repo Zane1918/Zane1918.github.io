@@ -5,6 +5,7 @@ slug: hello-world
 tags:
   - Personal
 excerpt: My first blog post — an introduction to what I'll be writing about.
+locale: en
 ---
 
 Welcome to my blog. I'm Zeng Jia, an algorithm engineer based in Shanghai.

@@ -5,6 +5,7 @@ company: Trip.com
 location: Shanghai, China
 range: Mar 2024 - Present
 url: https://trip.com
+locale: en
 ---
 
 - Designed and maintained large-scale recommendation systems serving millions of daily active users

@@ -9,6 +9,7 @@ tech:
   - Kafka
   - Redis
   - FAISS
+locale: en
 ---
 
 A large-scale real-time recommendation system that serves personalized content to millions of users. Implemented a two-tower model for candidate retrieval with sub-50ms latency using FAISS vector search and Redis feature store.

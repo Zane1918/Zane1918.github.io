@@ -8,5 +8,6 @@ tech:
   - Airflow
   - Docker
   - MLflow
+locale: en
 ---
 A modular ML pipeline framework for automating model training, evaluation, and deployment workflows with experiment tracking.
