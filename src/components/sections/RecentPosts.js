@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
 import mixins from '../../styles/mixins'
 import useScrollReveal from '../../hooks/useScrollReveal'
@@ -63,40 +63,21 @@ const PostTitle = styled(Link)`
   &:hover { color: ${({ theme }) => theme.colors.accent}; }
 `
 
-const RecentPosts = () => {
+const RecentPosts = ({ t, posts, locale }) => {
   const ref = useScrollReveal()
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/content/posts/" } }
-        sort: { frontmatter: { date: DESC } }
-        limit: 3
-      ) {
-        nodes {
-          frontmatter {
-            title
-            slug
-            date(formatString: "MMM D, YYYY")
-          }
-        }
-      }
-    }
-  `)
-
-  const posts = data.allMarkdownRemark.nodes
-  if (!posts.length) return null
+  if (!posts || !posts.length) return null
 
   return (
     <StyledRecentPosts id="blog" ref={ref}>
       <HeaderRow>
-        <Heading>Recent Posts</Heading>
-        <ViewAll to="/blog">View all →</ViewAll>
+        <Heading>{t.heading}</Heading>
+        <ViewAll to={`/${locale}/blog/`}>{t.viewAll}</ViewAll>
       </HeaderRow>
       <PostList>
         {posts.map(({ frontmatter }) => (
           <PostItem key={frontmatter.slug}>
             <PostDate>{frontmatter.date}</PostDate>
-            <PostTitle to={`/blog/${frontmatter.slug}`}>{frontmatter.title}</PostTitle>
+            <PostTitle to={`/${locale}/blog/${frontmatter.slug}`}>{frontmatter.title}</PostTitle>
           </PostItem>
         ))}
       </PostList>
