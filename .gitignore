@@ -1,5 +1,6 @@
 .superpowers/
 .claude/.superpowers/
+.worktrees/
 
 # Gatsby
 .cache/
