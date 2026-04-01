@@ -213,11 +213,11 @@ const Nav = ({ locale, alternatePath, t }) => {
 
         {locale && alternatePath && (
           <LangToggle>
-            <LangOption $active={locale === 'en'} href={locale === 'en' ? undefined : alternatePath}>
+            <LangOption as={locale === 'en' ? 'span' : 'a'} $active={locale === 'en'} href={locale === 'en' ? undefined : alternatePath}>
               EN
             </LangOption>
             <LangSep>|</LangSep>
-            <LangOption $active={locale === 'zh'} href={locale === 'zh' ? undefined : alternatePath}>
+            <LangOption as={locale === 'zh' ? 'span' : 'a'} $active={locale === 'zh'} href={locale === 'zh' ? undefined : alternatePath}>
               中文
             </LangOption>
           </LangToggle>
@@ -261,9 +261,15 @@ const Nav = ({ locale, alternatePath, t }) => {
 
         {locale && alternatePath && (
           <MobileLangToggle>
-            <a href={locale === 'en' ? undefined : alternatePath} style={{ opacity: locale === 'en' ? 1 : 0.5 }}>EN</a>
+            {locale === 'en'
+              ? <span style={{ opacity: 1 }}>EN</span>
+              : <a href={alternatePath} style={{ opacity: 0.5 }}>EN</a>
+            }
             <span style={{ opacity: 0.3 }}>|</span>
-            <a href={locale === 'zh' ? undefined : alternatePath} style={{ opacity: locale === 'zh' ? 1 : 0.5 }}>中文</a>
+            {locale === 'zh'
+              ? <span style={{ opacity: 1 }}>中文</span>
+              : <a href={alternatePath} style={{ opacity: 0.5 }}>中文</a>
+            }
           </MobileLangToggle>
         )}
 

@@ -75,10 +75,23 @@ const PostExcerpt = styled.p`
 
 export const Head = ({ pageContext }) => {
   const t = selectLocale(pageContext.locale)
+  const htmlLang = pageContext.locale === 'zh' ? 'zh-CN' : 'en'
+  const altLang = pageContext.locale === 'zh' ? 'en' : 'zh'
+  const altHtmlLang = altLang === 'zh' ? 'zh-CN' : 'en'
+  const siteUrl = 'https://zane1918.github.io'
+  const currentPath = `/${pageContext.locale}/blog/`
   return (
     <>
+      <html lang={htmlLang} />
       <title>{t.meta.blogTitle}</title>
       <meta name="description" content={t.meta.blogDesc} />
+      {pageContext.alternatePath && (
+        <>
+          <link rel="alternate" hreflang={htmlLang} href={`${siteUrl}${currentPath}`} />
+          <link rel="alternate" hreflang={altHtmlLang} href={`${siteUrl}${pageContext.alternatePath}`} />
+          <link rel="alternate" hreflang="x-default" href={`${siteUrl}/en/`} />
+        </>
+      )}
     </>
   )
 }
