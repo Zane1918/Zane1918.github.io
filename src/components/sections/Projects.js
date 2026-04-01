@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useStaticQuery, graphql } from 'gatsby'
 import Icon from '../ui/Icon'
 import Tag from '../ui/Tag'
 import mixins from '../../styles/mixins'
@@ -93,30 +92,15 @@ const ShowMoreButton = styled.button`
   &:hover { background: ${({ theme }) => `${theme.colors.accentLight}33`}; }
 `
 
-const Projects = () => {
+const Projects = ({ t, projects }) => {
   const ref = useScrollReveal()
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/content/projects/" } }
-        sort: { frontmatter: { date: DESC } }
-      ) {
-        nodes {
-          excerpt(pruneLength: 120)
-          frontmatter { title github external tech }
-        }
-      }
-    }
-  `)
-
-  const projects = data.allMarkdownRemark.nodes
   const [showCount, setShowCount] = useState(SHOW_MORE_INCREMENT)
 
-  if (!projects.length) return null
+  if (!projects || !projects.length) return null
 
   return (
     <StyledProjects id="other-projects" ref={ref}>
-      <Heading>Other Projects</Heading>
+      <Heading>{t.heading}</Heading>
       <Grid>
         {projects.slice(0, showCount).map(({ excerpt, frontmatter }, i) => (
           <Card key={i}>
@@ -138,14 +122,14 @@ const Projects = () => {
             <CardTitle>{frontmatter.title}</CardTitle>
             <CardDesc>{excerpt}</CardDesc>
             <CardTech>
-              {frontmatter.tech?.map(t => <li key={t}><Tag>{t}</Tag></li>)}
+              {frontmatter.tech?.map(tech => <li key={tech}><Tag>{tech}</Tag></li>)}
             </CardTech>
           </Card>
         ))}
       </Grid>
       {showCount < projects.length && (
         <ShowMoreButton onClick={() => setShowCount(c => c + SHOW_MORE_INCREMENT)}>
-          Show More
+          {t.showMore}
         </ShowMoreButton>
       )}
     </StyledProjects>
