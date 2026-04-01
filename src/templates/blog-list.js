@@ -6,6 +6,8 @@ import mixins from '../styles/mixins'
 import en from '../i18n/en'
 import zh from '../i18n/zh'
 
+const selectLocale = locale => locale === 'zh' ? zh : en
+
 const StyledBlog = styled.section`
   padding: 80px 0;
 `
@@ -75,7 +77,7 @@ const PostExcerpt = styled.p`
 `
 
 export const Head = ({ pageContext }) => {
-  const t = pageContext.locale === 'zh' ? zh : en
+  const t = selectLocale(pageContext.locale)
   return (
     <>
       <title>{t.meta.blogTitle}</title>
@@ -86,7 +88,7 @@ export const Head = ({ pageContext }) => {
 
 export default function BlogListTemplate({ data, pageContext }) {
   const { locale, alternatePath } = pageContext
-  const t = locale === 'zh' ? zh : en
+  const t = selectLocale(locale)
   const posts = data.allMarkdownRemark.nodes
 
   return (
