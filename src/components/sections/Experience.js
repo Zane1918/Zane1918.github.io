@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useStaticQuery, graphql } from 'gatsby'
 import mixins from '../../styles/mixins'
 import useScrollReveal from '../../hooks/useScrollReveal'
 
@@ -113,32 +112,17 @@ const Duties = styled.div`
   }
 `
 
-const Experience = () => {
+const Experience = ({ t, jobs }) => {
   const ref = useScrollReveal()
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/content/jobs/" } }
-        sort: { frontmatter: { date: DESC } }
-      ) {
-        nodes {
-          html
-          frontmatter { title company range url }
-        }
-      }
-    }
-  `)
-
-  const jobs = data.allMarkdownRemark.nodes
   const [activeTab, setActiveTab] = useState(0)
 
-  if (!jobs.length) return null
+  if (!jobs || !jobs.length) return null
 
   const job = jobs[activeTab]
 
   return (
     <StyledExperience id="experience" ref={ref}>
-      <Heading>Where I've Worked</Heading>
+      <Heading>{t.heading}</Heading>
       <TabsWrapper>
         <TabList>
           {jobs.map(({ frontmatter }, i) => (
