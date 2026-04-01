@@ -29,13 +29,13 @@ const StyledContent = styled.div`
   }
 `
 
-const Layout = ({ children }) => (
+const Layout = ({ children, locale, alternatePath, t }) => (
   <ThemeProvider theme={theme}>
     <GlobalStyle />
-    <Nav />
+    <Nav locale={locale} alternatePath={alternatePath} t={t} />
     <StyledMain>
       <StyledContent>{children}</StyledContent>
-      <Footer />
+      <Footer t={t?.footer} />
     </StyledMain>
   </ThemeProvider>
 )

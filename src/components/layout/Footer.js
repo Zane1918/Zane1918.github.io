@@ -10,9 +10,9 @@ const StyledFooter = styled.footer`
   color: ${({ theme }) => theme.colors.lightSlate};
 `
 
-const Footer = () => (
+const Footer = ({ t }) => (
   <StyledFooter>
-    <p>Designed &amp; Built by {config.name}</p>
+    <p>{t ? t.credit : 'Designed & Built by '}{config.name}</p>
   </StyledFooter>
 )
 
