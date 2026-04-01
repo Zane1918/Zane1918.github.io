@@ -11,8 +11,10 @@ import RecentPosts from '../components/sections/RecentPosts'
 import en from '../i18n/en'
 import zh from '../i18n/zh'
 
+const selectLocale = locale => locale === 'zh' ? zh : en
+
 export const Head = ({ pageContext }) => {
-  const t = pageContext.locale === 'zh' ? zh : en
+  const t = selectLocale(pageContext.locale)
   return (
     <>
       <title>{t.meta.homeTitle}</title>
@@ -23,7 +25,7 @@ export const Head = ({ pageContext }) => {
 
 export default function HomeTemplate({ data, pageContext }) {
   const { locale, alternatePath } = pageContext
-  const t = locale === 'zh' ? zh : en
+  const t = selectLocale(locale)
 
   return (
     <Layout locale={locale} alternatePath={alternatePath} t={t}>
