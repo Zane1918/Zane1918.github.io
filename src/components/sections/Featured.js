@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useStaticQuery, graphql } from 'gatsby'
 import Icon from '../ui/Icon'
 import Tag from '../ui/Tag'
 import mixins from '../../styles/mixins'
@@ -96,37 +95,22 @@ const ImagePlaceholder = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.border};
 `
 
-const Featured = () => {
+const Featured = ({ t, projects }) => {
   const ref = useScrollReveal()
-  const data = useStaticQuery(graphql`
-    query {
-      allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/content/featured/" } }
-        sort: { frontmatter: { date: DESC } }
-      ) {
-        nodes {
-          html
-          frontmatter { title github external tech }
-        }
-      }
-    }
-  `)
-
-  const projects = data.allMarkdownRemark.nodes
-  if (!projects.length) return null
+  if (!projects || !projects.length) return null
 
   return (
     <StyledFeatured id="projects" ref={ref}>
-      <Heading>Featured Work</Heading>
+      <Heading>{t.heading}</Heading>
       <ProjectList>
         {projects.map(({ html, frontmatter }, i) => (
           <Project key={i}>
             <ProjectContent>
-              <FeaturedLabel>Featured Project</FeaturedLabel>
+              <FeaturedLabel>{t.label}</FeaturedLabel>
               <ProjectTitle>{frontmatter.title}</ProjectTitle>
               <Description dangerouslySetInnerHTML={{ __html: html }} />
               <TechList>
-                {frontmatter.tech?.map(t => <li key={t}><Tag>{t}</Tag></li>)}
+                {frontmatter.tech?.map(tech => <li key={tech}><Tag>{tech}</Tag></li>)}
               </TechList>
               <Links>
                 {frontmatter.github && (
