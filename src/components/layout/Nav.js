@@ -34,13 +34,44 @@ const Logo = styled(Link)`
   font-weight: 800;
   font-size: 20px;
   color: ${({ theme }) => theme.colors.navy};
-  margin-bottom: 48px;
+  margin-bottom: 16px;
   letter-spacing: -0.5px;
   &:hover { opacity: 0.8; color: ${({ theme }) => theme.colors.navy}; }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     margin-bottom: 0;
   }
+`
+
+const LangToggle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 32px;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 12px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: none;
+  }
+`
+
+const LangOption = styled.a`
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: ${({ $active }) => ($active ? 'default' : 'pointer')};
+  color: ${({ $active, theme }) => ($active ? theme.colors.bgLight : theme.colors.slate)};
+  background: ${({ $active, theme }) => ($active ? theme.colors.accent : 'transparent')};
+  transition: ${({ theme }) => theme.transition};
+  &:hover {
+    color: ${({ $active, theme }) => ($active ? theme.colors.bgLight : theme.colors.accent)};
+  }
+`
+
+const LangSep = styled.span`
+  color: ${({ theme }) => theme.colors.border};
 `
 
 const NavLinks = styled.ul`
@@ -133,7 +164,23 @@ const MobileMenu = styled.div`
   }
 `
 
-const Nav = () => {
+const MobileLangToggle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 16px;
+`
+
+// Converts config.js url (e.g. '/#about', '/blog') to locale-prefixed version
+const localizeUrl = (url, locale) => {
+  if (!locale) return url
+  if (url.startsWith('/#')) return `/${locale}/${url.slice(1)}`
+  if (url === '/blog') return `/${locale}/blog/`
+  return `/${locale}${url}`
+}
+
+const Nav = ({ locale, alternatePath, t }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
 
@@ -162,16 +209,36 @@ const Nav = () => {
   return (
     <>
       <StyledNav>
-        <Logo to="/">ZJ</Logo>
+        <Logo to={locale ? `/${locale}/` : '/'}>ZJ</Logo>
+
+        {locale && alternatePath && (
+          <LangToggle>
+            <LangOption $active={locale === 'en'} href={locale === 'en' ? undefined : alternatePath}>
+              EN
+            </LangOption>
+            <LangSep>|</LangSep>
+            <LangOption $active={locale === 'zh'} href={locale === 'zh' ? undefined : alternatePath}>
+              中文
+            </LangOption>
+          </LangToggle>
+        )}
+
         <NavLinks>
-          {config.navLinks.map(({ name, url }) => (
-            <li key={name}>
-              {url.startsWith('/') && !url.startsWith('/#')
-                ? <Link to={url} activeClassName="active">{name}</Link>
-                : <a href={url} className={activeSection && url.includes(activeSection) ? 'active' : ''}>{name}</a>}
-            </li>
-          ))}
+          {config.navLinks.map(({ name, url }) => {
+            const localUrl = localizeUrl(url, locale)
+            const isAnchor = url.startsWith('/#')
+            const label = t?.nav?.[name.toLowerCase()] || name
+            return (
+              <li key={name}>
+                {isAnchor
+                  ? <a href={localUrl} className={activeSection && url.includes(activeSection) ? 'active' : ''}>{label}</a>
+                  : <Link to={localUrl} activeClassName="active">{label}</Link>
+                }
+              </li>
+            )
+          })}
         </NavLinks>
+
         <SocialIcons>
           {config.socialMedia.map(({ name, url }) => (
             <a key={name} href={url} target="_blank" rel="noopener noreferrer" aria-label={name}>
@@ -179,6 +246,7 @@ const Nav = () => {
             </a>
           ))}
         </SocialIcons>
+
         <HamburgerButton onClick={() => setMenuOpen(true)} aria-label="Open menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="3" y1="6" x2="21" y2="6"/>
@@ -190,11 +258,22 @@ const Nav = () => {
 
       <MobileMenu $open={menuOpen} aria-hidden={!menuOpen}>
         <button onClick={closeMenu} aria-label="Close menu">×</button>
-        {config.navLinks.map(({ name, url }) => (
-          url.startsWith('/') && !url.startsWith('/#')
-            ? <Link key={name} to={url} onClick={closeMenu}>{name}</Link>
-            : <a key={name} href={url} onClick={closeMenu}>{name}</a>
-        ))}
+
+        {locale && alternatePath && (
+          <MobileLangToggle>
+            <a href={locale === 'en' ? undefined : alternatePath} style={{ opacity: locale === 'en' ? 1 : 0.5 }}>EN</a>
+            <span style={{ opacity: 0.3 }}>|</span>
+            <a href={locale === 'zh' ? undefined : alternatePath} style={{ opacity: locale === 'zh' ? 1 : 0.5 }}>中文</a>
+          </MobileLangToggle>
+        )}
+
+        {config.navLinks.map(({ name, url }) => {
+          const localUrl = localizeUrl(url, locale)
+          const label = t?.nav?.[name.toLowerCase()] || name
+          return url.startsWith('/#')
+            ? <a key={name} href={localUrl} onClick={closeMenu}>{label}</a>
+            : <Link key={name} to={localUrl} onClick={closeMenu}>{label}</Link>
+        })}
       </MobileMenu>
     </>
   )
