@@ -9,13 +9,12 @@ import Projects from '../components/sections/Projects'
 import Contact from '../components/sections/Contact'
 import RecentPosts from '../components/sections/RecentPosts'
 import { selectLocale } from '../i18n'
-const config = require('../config')
+import config from '../config'
 
 export const Head = ({ pageContext }) => {
   const t = selectLocale(pageContext.locale)
   const htmlLang = pageContext.locale === 'zh' ? 'zh-CN' : 'en'
-  const altLang = pageContext.locale === 'zh' ? 'en' : 'zh'
-  const altHtmlLang = altLang === 'zh' ? 'zh-CN' : 'en'
+  const altHtmlLang = pageContext.locale === 'zh' ? 'en' : 'zh-CN'
   const { siteUrl } = config
   const currentPath = `/${pageContext.locale}/`
   const ogLocale = pageContext.locale === 'zh' ? 'zh_CN' : 'en_US'
@@ -27,6 +26,7 @@ export const Head = ({ pageContext }) => {
       <html lang={htmlLang} />
       <title>{ogTitle}</title>
       <meta name="description" content={ogDesc} />
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={ogTitle} />
       <meta property="og:description" content={ogDesc} />
       <meta property="og:url" content={`${siteUrl}${currentPath}`} />
