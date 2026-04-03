@@ -144,6 +144,7 @@ export const Head = ({ data, pageContext }) => {
       <meta property="og:description" content={ogDesc} />
       <meta property="og:url" content={`${siteUrl}${currentPath}`} />
       <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+      <meta property="og:image:alt" content={ogTitle} />
       <meta property="og:locale" content={ogLocale} />
       <meta property="og:locale:alternate" content={ogLocaleAlt} />
       <meta property="og:site_name" content={config.name} />
@@ -155,6 +156,7 @@ export const Head = ({ data, pageContext }) => {
       <meta name="twitter:title" content={ogTitle} />
       <meta name="twitter:description" content={ogDesc} />
       <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
+      <meta name="twitter:image:alt" content={ogTitle} />
       {pageContext.alternatePath && (
         <>
           <link rel="alternate" hreflang={htmlLang} href={`${siteUrl}${currentPath}`} />
@@ -202,7 +204,7 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
-        dateISO: date(formatString: "YYYY-MM-DD")
+        dateISO: date(formatString: "YYYY-MM-DDTHH:mm:ssZ")
         tags
         excerpt
       }
