@@ -102,7 +102,7 @@ const About = ({ t }) => {
         </Bio>
         <PhotoWrapper>
           <StaticImage
-            src="../../images/profile.jpg"
+            src="../../images/profile.png"
             alt="Zeng Jia"
             width={300}
             height={300}

@@ -36,9 +36,9 @@ export default {
   blog: { heading: 'Blog', prev: '← 上一篇', next: '下一篇 →' },
   footer: { credit: '设计 & 开发：' },
   meta: {
-    homeTitle: '曾佳 | Algorithm Engineer',
+    homeTitle: '曾加 | Algorithm Engineer',
     homeDesc: '携程算法工程师，专注大规模推荐系统与 ML 工程。',
-    blogTitle: 'Blog | 曾佳',
+    blogTitle: 'Blog | 曾加',
     blogDesc: '关于机器学习、系统工程的技术文章。',
   },
 }
