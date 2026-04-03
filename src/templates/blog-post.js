@@ -3,6 +3,7 @@ import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
 import { selectLocale } from '../i18n'
+import config from '../config'
 
 const Article = styled.article`
   padding: 80px 0;
@@ -125,15 +126,35 @@ const NavRow = styled.nav`
 export const Head = ({ data, pageContext }) => {
   const t = selectLocale(pageContext.locale)
   const htmlLang = pageContext.locale === 'zh' ? 'zh-CN' : 'en'
-  const altLang = pageContext.locale === 'zh' ? 'en' : 'zh'
-  const altHtmlLang = altLang === 'zh' ? 'zh-CN' : 'en'
-  const siteUrl = 'https://zane1918.github.io'
+  const altHtmlLang = pageContext.locale === 'zh' ? 'en' : 'zh-CN'
+  const { siteUrl } = config
   const currentPath = `/${pageContext.locale}/blog/${pageContext.slug}`
+  const ogLocale = pageContext.locale === 'zh' ? 'zh_CN' : 'en_US'
+  const ogLocaleAlt = pageContext.locale === 'zh' ? 'en_US' : 'zh_CN'
+  const { title, excerpt, dateISO, tags } = data.markdownRemark.frontmatter
+  const ogTitle = `${title} | ${t.meta.homeTitle.split('|')[0].trim()}`
+  const ogDesc = excerpt || ''
   return (
     <>
       <html lang={htmlLang} />
-      <title>{data.markdownRemark.frontmatter.title} | {t.meta.homeTitle.split('|')[0].trim()}</title>
-      <meta name="description" content={data.markdownRemark.frontmatter.excerpt || ''} />
+      <title>{ogTitle}</title>
+      <meta name="description" content={ogDesc} />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDesc} />
+      <meta property="og:url" content={`${siteUrl}${currentPath}`} />
+      <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+      <meta property="og:locale" content={ogLocale} />
+      <meta property="og:locale:alternate" content={ogLocaleAlt} />
+      <meta property="og:site_name" content={config.name} />
+      <meta property="article:published_time" content={dateISO} />
+      {tags?.map(tag => (
+        <meta key={tag} property="article:tag" content={tag} />
+      ))}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={ogTitle} />
+      <meta name="twitter:description" content={ogDesc} />
+      <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
       {pageContext.alternatePath && (
         <>
           <link rel="alternate" hreflang={htmlLang} href={`${siteUrl}${currentPath}`} />
@@ -181,6 +202,7 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
+        dateISO: date(formatString: "YYYY-MM-DD")
         tags
         excerpt
       }
