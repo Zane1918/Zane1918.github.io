@@ -19,7 +19,7 @@ const StyledNav = styled.nav`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 100%;
-    height: auto;
+    height: 64px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -53,6 +53,18 @@ const LangToggle = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     display: none;
+  }
+`
+
+const MobileNavLang = styled.div`
+  display: none;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: ${({ theme }) => theme.fonts.mono};
+    font-size: 12px;
   }
 `
 
@@ -167,7 +179,7 @@ const MobileMenu = styled.div`
 const MobileLangToggle = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 16px;
 `
@@ -247,6 +259,18 @@ const Nav = ({ locale, alternatePath, t }) => {
           ))}
         </SocialIcons>
 
+        {locale && alternatePath && (
+          <MobileNavLang>
+            <LangOption as={locale === 'en' ? 'span' : 'a'} $active={locale === 'en'} href={locale === 'en' ? undefined : alternatePath}>
+              EN
+            </LangOption>
+            <LangSep>|</LangSep>
+            <LangOption as={locale === 'zh' ? 'span' : 'a'} $active={locale === 'zh'} href={locale === 'zh' ? undefined : alternatePath}>
+              中文
+            </LangOption>
+          </MobileNavLang>
+        )}
+
         <HamburgerButton onClick={() => setMenuOpen(true)} aria-label="Open menu">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="3" y1="6" x2="21" y2="6"/>
@@ -261,15 +285,13 @@ const Nav = ({ locale, alternatePath, t }) => {
 
         {locale && alternatePath && (
           <MobileLangToggle>
-            {locale === 'en'
-              ? <span style={{ opacity: 1 }}>EN</span>
-              : <a href={alternatePath} style={{ opacity: 0.5 }}>EN</a>
-            }
-            <span style={{ opacity: 0.3 }}>|</span>
-            {locale === 'zh'
-              ? <span style={{ opacity: 1 }}>中文</span>
-              : <a href={alternatePath} style={{ opacity: 0.5 }}>中文</a>
-            }
+            <LangOption as={locale === 'en' ? 'span' : 'a'} $active={locale === 'en'} href={locale === 'en' ? undefined : alternatePath}>
+              EN
+            </LangOption>
+            <LangSep>|</LangSep>
+            <LangOption as={locale === 'zh' ? 'span' : 'a'} $active={locale === 'zh'} href={locale === 'zh' ? undefined : alternatePath}>
+              中文
+            </LangOption>
           </MobileLangToggle>
         )}
 
