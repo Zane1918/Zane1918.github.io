@@ -260,7 +260,7 @@ const Nav = ({ locale, alternatePath, t }) => {
         </SocialIcons>
 
         {locale && alternatePath && (
-          <MobileNavLang>
+          <MobileNavLang role="navigation" aria-label="Language">
             <LangOption as={locale === 'en' ? 'span' : 'a'} $active={locale === 'en'} href={locale === 'en' ? undefined : alternatePath}>
               EN
             </LangOption>
