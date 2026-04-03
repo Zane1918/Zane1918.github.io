@@ -9,19 +9,35 @@ import Projects from '../components/sections/Projects'
 import Contact from '../components/sections/Contact'
 import RecentPosts from '../components/sections/RecentPosts'
 import { selectLocale } from '../i18n'
+const config = require('../config')
 
 export const Head = ({ pageContext }) => {
   const t = selectLocale(pageContext.locale)
   const htmlLang = pageContext.locale === 'zh' ? 'zh-CN' : 'en'
   const altLang = pageContext.locale === 'zh' ? 'en' : 'zh'
   const altHtmlLang = altLang === 'zh' ? 'zh-CN' : 'en'
-  const siteUrl = 'https://zane1918.github.io'
+  const { siteUrl } = config
   const currentPath = `/${pageContext.locale}/`
+  const ogLocale = pageContext.locale === 'zh' ? 'zh_CN' : 'en_US'
+  const ogLocaleAlt = pageContext.locale === 'zh' ? 'en_US' : 'zh_CN'
+  const ogTitle = t.meta.homeTitle
+  const ogDesc = t.meta.homeDesc
   return (
     <>
       <html lang={htmlLang} />
-      <title>{t.meta.homeTitle}</title>
-      <meta name="description" content={t.meta.homeDesc} />
+      <title>{ogTitle}</title>
+      <meta name="description" content={ogDesc} />
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDesc} />
+      <meta property="og:url" content={`${siteUrl}${currentPath}`} />
+      <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+      <meta property="og:locale" content={ogLocale} />
+      <meta property="og:locale:alternate" content={ogLocaleAlt} />
+      <meta property="og:site_name" content={config.name} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={ogTitle} />
+      <meta name="twitter:description" content={ogDesc} />
+      <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
       {pageContext.alternatePath && (
         <>
           <link rel="alternate" hreflang={htmlLang} href={`${siteUrl}${currentPath}`} />
