@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Layout from '../components/layout/Layout'
 import mixins from '../styles/mixins'
 import { selectLocale } from '../i18n'
+import config from '../config'
 
 const StyledBlog = styled.section`
   padding: 80px 0;
@@ -76,15 +77,30 @@ const PostExcerpt = styled.p`
 export const Head = ({ pageContext }) => {
   const t = selectLocale(pageContext.locale)
   const htmlLang = pageContext.locale === 'zh' ? 'zh-CN' : 'en'
-  const altLang = pageContext.locale === 'zh' ? 'en' : 'zh'
-  const altHtmlLang = altLang === 'zh' ? 'zh-CN' : 'en'
-  const siteUrl = 'https://zane1918.github.io'
+  const altHtmlLang = pageContext.locale === 'zh' ? 'en' : 'zh-CN'
+  const { siteUrl } = config
   const currentPath = `/${pageContext.locale}/blog/`
+  const ogLocale = pageContext.locale === 'zh' ? 'zh_CN' : 'en_US'
+  const ogLocaleAlt = pageContext.locale === 'zh' ? 'en_US' : 'zh_CN'
+  const ogTitle = t.meta.blogTitle
+  const ogDesc = t.meta.blogDesc
   return (
     <>
       <html lang={htmlLang} />
-      <title>{t.meta.blogTitle}</title>
-      <meta name="description" content={t.meta.blogDesc} />
+      <title>{ogTitle}</title>
+      <meta name="description" content={ogDesc} />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content={ogTitle} />
+      <meta property="og:description" content={ogDesc} />
+      <meta property="og:url" content={`${siteUrl}${currentPath}`} />
+      <meta property="og:image" content={`${siteUrl}/og-image.png`} />
+      <meta property="og:locale" content={ogLocale} />
+      <meta property="og:locale:alternate" content={ogLocaleAlt} />
+      <meta property="og:site_name" content={config.name} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={ogTitle} />
+      <meta name="twitter:description" content={ogDesc} />
+      <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
       {pageContext.alternatePath && (
         <>
           <link rel="alternate" hreflang={htmlLang} href={`${siteUrl}${currentPath}`} />
