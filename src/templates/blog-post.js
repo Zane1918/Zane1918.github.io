@@ -128,7 +128,7 @@ export const Head = ({ data, pageContext }) => {
   const htmlLang = pageContext.locale === 'zh' ? 'zh-CN' : 'en'
   const altHtmlLang = pageContext.locale === 'zh' ? 'en' : 'zh-CN'
   const { siteUrl } = config
-  const currentPath = `/${pageContext.locale}/blog/${pageContext.slug}`
+  const currentPath = `/${pageContext.locale}/blog/${pageContext.slug}/`
   const ogLocale = pageContext.locale === 'zh' ? 'zh_CN' : 'en_US'
   const ogLocaleAlt = pageContext.locale === 'zh' ? 'en_US' : 'zh_CN'
   const { title, excerpt, dateISO, tags } = data.markdownRemark.frontmatter
